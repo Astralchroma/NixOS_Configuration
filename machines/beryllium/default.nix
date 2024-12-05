@@ -64,6 +64,12 @@
 		ensureDatabases = [ "grafana" ];
 	};
 
+	services.mongodb = {
+		enable = true;
+		package = pkgs.mongodb-7_0;
+		dbpath = "/srv/mongodb";
+	};
+
 	services.prometheus = {
 		enable = true;
 
@@ -177,5 +183,7 @@
 
 		users.root.initialHashedPassword = "$y$j9T$7Y8zcgUU47qagjVNTVPVH.$uYcBIfNpvQ/hG9uG3dRL4zH8gZKbPYrOcFXO4ZFuCu7";
 		users.emily.initialHashedPassword = "$y$j9T$7Y8zcgUU47qagjVNTVPVH.$uYcBIfNpvQ/hG9uG3dRL4zH8gZKbPYrOcFXO4ZFuCu7";
+
+		users.emily.packages = [ pkgs.mongosh ];
 	};
 }
