@@ -37,6 +37,7 @@
 			modules = [
 				machines/all.nix
 				machines/beryllium
+				agenix.nixosModules.default
 			];
 			specialArgs = { inherit inputs; };
 		};

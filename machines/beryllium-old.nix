@@ -27,43 +27,6 @@
 		};
 	};
 
-	age.secrets.aggregator_discord_token = {
-		file = ./secrets/aggregator_discord_token.age;
-	};
-
-	containers.aggregator = {
-		autoStart = true;
-
-		bindMounts = {
-			"/srv" = {
-				hostPath = "/srv/aggregator";
-				isReadOnly = false;
-			};
-			"${config.age.secrets.aggregator_discord_token.path}" = {
-				isReadOnly = true;
-			};
-		};
-
-		config = {
-			system.stateVersion = "24.11";
-
-			environment.systemPackages = [ pkgs.jdk17 ];
-
-			systemd.services.aggregator = {
-				enable = true;
-				description = "Aggregator";
-				unitConfig.Type = "simple";
-				script = ''DISCORD_TOKEN=$(cat "${config.age.secrets.aggregator_discord_token.path}") ${pkgs.jdk17}/bin/java -jar /srv/build/libs/Aggregator-1.4.1-all.jar'';
-				wantedBy = [ "multi-user.target" ];
-				environment = {
-					MONGO_URI = "mongodb://localhost";
-					MONGO_DATABASE = "aggregator";
-					OWNER_SNOWFLAKE = "521031433972744193";
-				};
-			};
-		};
-	};
-
 	containers.caddy = {
 		autoStart = true;
 
@@ -210,5 +173,4 @@
 			UMask = "777";
 		};
 	};
-
 }

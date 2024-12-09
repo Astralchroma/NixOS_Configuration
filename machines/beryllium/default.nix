@@ -1,4 +1,8 @@
 { config, modulesPath, pkgs, ... }: {
+	nixpkgs.overlays = [
+		(self: super: { aggregator = super.callPackage ../../packages/aggregator.nix {}; })
+	];
+
 	imports = [ (modulesPath + "/profiles/qemu-guest.nix") ];
 
 	system.stateVersion = "25.05";
@@ -156,6 +160,23 @@
 		enable = true;
 		configFile = ./Caddyfile;
 		dataDir = "/srv/caddy";
+	};
+
+	age.secrets.aggregator_discord_token = {
+		file = ./secrets/aggregator_discord_token.age;
+	};
+
+	systemd.services.aggregator = {
+		enable = true;
+		description = "Aggregator Discord Bot";
+		unitConfig.Type = "simple";
+		script = ''DISCORD_TOKEN=$(cat "${config.age.secrets.aggregator_discord_token.path}") ${pkgs.jdk17}/bin/java -jar ${pkgs.aggregator}/bin/aggregator.jar'';
+		wantedBy = [ "multi-user.target" ];
+		environment = {
+			MONGO_URI = "mongodb://localhost";
+			MONGO_DATABASE = "aggregator";
+			OWNER_SNOWFLAKE = "521031433972744193";
+		};
 	};
 
 	networking = {
