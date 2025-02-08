@@ -30,23 +30,6 @@ https://monitoring.astralchroma.dev {
 	reverse_proxy http://localhost:3000
 }
 
-https://vpn.astralchroma.dev {
-	respond "Under Construction" 503
-}
-
-https://solarscape.astralchroma.dev {
-	import html
-
-	redir /discord https://astralchroma.dev/discord permanent
-	redir / https://github.com/Astralchroma/Solarscape temporary
-
-	respond "Not Found" 404
-}
-
-https://solarscape-api.astralchroma.dev {
-	respond "Under Construction" 503
-}
-
 https://api.axolotlclient.com {
 	handle_path /v1/* {
 		reverse_proxy localhost:8000
