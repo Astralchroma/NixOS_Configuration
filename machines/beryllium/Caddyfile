@@ -24,6 +24,12 @@ https://www.astralchroma.dev {
 	redir https://astralchroma.dev{uri} permanent
 }
 
+https://git.astralchroma.dev {
+	import html
+
+	reverse_proxy http://localhost:4000
+}
+
 https://monitoring.astralchroma.dev {
 	import html
 

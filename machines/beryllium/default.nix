@@ -47,6 +47,18 @@
 		};
 	};
 
+	networking = {
+		hostName = "beryllium";
+
+		nftables.enable = true;
+		useDHCP = true;
+
+		firewall = {
+			allowedTCPPorts = [ 80 443 ];
+			allowedUDPPorts = [ 443 ];
+		};
+	};
+
 	services.postgresql = {
 		enable = true;
 
@@ -161,6 +173,37 @@
 		};
 	};
 
+	services.forgejo = {
+		enable = true;
+		
+		database.type = "postgres";
+		
+		settings = {
+			DEFAULT = {
+				APP_NAME = "git.astralchroma.dev";
+				APP_SLOGAN = "";
+				APP_DISPLAY_NAME_FORMAT = "git.astralchroma.dev";
+			};
+
+			server = {
+				DOMAIN = "git.astralchroma.dev";
+				ROOT_URL = "https://git.astralchroma.dev/";
+
+				HTTP_PORT = 4000;
+
+				DISABLE_SSH = true;
+			};
+
+			security = {
+				MIN_PASSWORD_LENGTH = 12;
+				PASSWORD_COMPLEXITY = "lower,upper,digit,spec";
+			};
+
+			session.COOKIE_SECURE = true;
+			admin.DISABLE_REGULAR_ORG_CREATION = true;
+		};
+	};
+
 	age.secrets.axolotlClientApiHypixelApiKey = {
 		file = ../../secrets/axolotl_client-api-hypixel-api-key.age;
 		owner = "axolotl_client-api";
@@ -177,18 +220,6 @@
 		enable = true;
 		configFile = ./Caddyfile;
 		dataDir = "/srv/caddy";
-	};
-
-	networking = {
-		hostName = "beryllium";
-
-		nftables.enable = true;
-		useDHCP = true;
-
-		firewall = {
-			allowedTCPPorts = [ 80 443 ];
-			allowedUDPPorts = [ 443 ];
-		};
 	};
 
 	environment.etc = {
