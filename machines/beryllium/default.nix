@@ -30,32 +30,26 @@
 			options = [ "subvol=persistent" ];
 			neededForBoot = true;
 		};
-
-		"/etc/persistent" = {
-			device = "/dev/disk/by-uuid/71f5a4ef-0a0b-4574-ae9a-b7b006b0337d";
-			options = [ "subvol=etc/persistent" ];
-			neededForBoot = true;
-		};
-
-		"/etc/nixos" = {
-			device = "/dev/disk/by-uuid/71f5a4ef-0a0b-4574-ae9a-b7b006b0337d";
-			options = [ "subvol=etc/nixos" ];
-		};
-
-		"/srv" = {
-			device = "/dev/disk/by-uuid/71f5a4ef-0a0b-4574-ae9a-b7b006b0337d";
-			options = [ "subvol=srv" ];
-		};
-
-		"/var/lib/prometheus" = {
-			device = "/dev/disk/by-uuid/71f5a4ef-0a0b-4574-ae9a-b7b006b0337d";
-			options = [ "subvol=srv/prometheus" ];
-		};
 	};
 
 	environment.persistence."/persistent" = {
 		hideMounts = true;
-		directories = [ "/var/lib/forgejo" ];
+
+		directories = [
+			"/etc/nixos" # NixOS Configuration
+			"/var/lib/nixos" # Needed to get Impermanence to stop complaining on build
+
+			# Service Data Directories
+			"/var/lib/caddy"
+			"/var/lib/forgejo"
+			"/var/lib/grafana"
+			"/var/lib/postgresql"
+			"/var/lib/prometheus2"
+		];
+
+		files = [
+			"/etc/machine-id"
+		];
 	};
 
 	networking = {
@@ -74,7 +68,6 @@
 		enable = true;
 
 		package = pkgs.postgresql_17;
-		dataDir = "/srv/postgresql/17";
 
 		ensureUsers = [
 			{
@@ -103,8 +96,6 @@
 
 	services.prometheus = {
 		enable = true;
-
-		stateDir = "prometheus";
 
 		retentionTime = "100y"; # Basically forever!
 		globalConfig.scrape_interval = "5s"; # This is probably extremely overkill, will likely change it later.
@@ -157,8 +148,6 @@
 
 	services.grafana = {
 		enable = true;
-
-		dataDir = "/srv/grafana";
 
 		settings = {
 			server = {
@@ -231,16 +220,13 @@
 	services.caddy = {
 		enable = true;
 		configFile = ./Caddyfile;
-		dataDir = "/srv/caddy";
 	};
 
 	environment.etc = {
-		"machine-id".source = "/etc/persistent/machine-id";
-
-		"ssh/ssh_host_rsa_key".source = "/etc/persistent/ssh_host_rsa_key";
-		"ssh/ssh_host_rsa_key.pub".source = "/etc/persistent/ssh_host_rsa_key.pub";
-		"ssh/ssh_host_ed25519_key".source = "/etc/persistent/ssh_host_ed25519_key";
-		"ssh/ssh_host_ed25519_key.pub".source = "/etc/persistent/ssh_host_ed25519_key.pub";
+		"ssh/ssh_host_rsa_key".source = "/persistent/etc/ssh/ssh_host_rsa_key";
+		"ssh/ssh_host_rsa_key.pub".source = "/persistent/etc/ssh/ssh_host_rsa_key.pub";
+		"ssh/ssh_host_ed25519_key".source = "/persistent/etc/ssh/ssh_host_ed25519_key";
+		"ssh/ssh_host_ed25519_key.pub".source = "/persistent/etc/ssh/ssh_host_ed25519_key.pub";
 	};
 
 	users = {
