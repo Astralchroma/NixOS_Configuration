@@ -106,10 +106,6 @@
 				static_configs = [{ targets = [ "localhost:${toString node.port}" ]; }];
 			}
 			{
-				job_name = "postgres";
-				static_configs = [{ targets = [ "localhost:${toString postgres.port}" ]; }];
-			}
-			{
 				job_name = "process";
 				static_configs = [{ targets = [ "localhost:${toString process.port}" ]; }];
 			}
@@ -127,7 +123,6 @@
 						name = "prometheus";
 						comm = [
 							"prometheus"
-							"postgres_export"
 							"node_exporter"
 							"process-exporte"
 						];
