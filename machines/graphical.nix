@@ -73,12 +73,14 @@
 
 	users.users.emily = {
 		packages = with pkgs; with nur.repos; [
-			activitywatch ags aseprite aw-watcher-window-wayland blockbench ciscoPacketTracer8
-			devenv direnv dunst fastfetch fd gamemode gamescope gimp git-of-theseus heroic hyprshot
-			inkscape jetbrains.idea-community kitty libreoffice librewolf mangohud nautilus ncdu
-			nltch.spotify-adblock obs-studio obsidian onefetch oxipng pavucontrol playerctl
-			prismlauncher qoi rclone renderdoc rsync smartmontools swaylock unzip vesktop vlc
-			vmtouch wget wine wine64 winetricks wofi xorg.xcursorthemes yubikey-manager zip
+			activitywatch ags aseprite aw-watcher-window-wayland blockbench devenv direnv dunst fastfetch
+			fd gamemode gamescope gimp git-of-theseus heroic hyprshot inkscape jetbrains.idea-community
+			kitty libreoffice librewolf mangohud nautilus ncdu nltch.spotify-adblock obs-studio obsidian
+			onefetch oxipng pavucontrol playerctl prismlauncher qoi rclone renderdoc rsync smartmontools
+			swaylock unzip vesktop vlc vmtouch wget wine wine64 winetricks wofi xorg.xcursorthemes
+			yubikey-manager zip
+
+			(ciscoPacketTracer8.overrideAttrs { dontCheckForBrokenSymlinks = true; })
 
 			(vscode-with-extensions.override {
 				vscode = vscodium;
