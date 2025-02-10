@@ -142,11 +142,12 @@
 						];
 					}
 
+					{ name = "axolotl_client-api"; comm = [ "axolotl_client-" ]; }
 					{ name = "caddy"; comm = [ "caddy" ]; }
+					{ name = "forgejo"; comm = [ ".gitea-wrapped" ]; }
 					{ name = "grafana"; comm = [ "grafana" ]; }
 					{ name = "mongod"; comm = [ "mongod" ]; }
 					{ name = "postgres"; comm = [ "postgres" ]; }
-					{ name = "axolotl_client-api"; comm = [ "axolotl_client-" ]; }
 
 					{ name = "other"; cmdline = [ ".*" ]; }
 				];
