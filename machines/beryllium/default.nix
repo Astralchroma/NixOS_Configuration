@@ -9,7 +9,7 @@
 		"/" = {
 			device = "tmpfs";
 			fsType = "tmpfs";
-			options = [ "mode=755" ];
+			options = [ "defaults" "mode=755" ];
 			neededForBoot = true;
 		};
 
@@ -22,6 +22,12 @@
 			device = "/dev/disk/by-uuid/71f5a4ef-0a0b-4574-ae9a-b7b006b0337d";
 			fsType = "btrfs";
 			options = [ "compress=lzo" "subvol=nix" ];
+			neededForBoot = true;
+		};
+
+		"/persistent" = {
+			device = "/dev/disk/by-uuid/71f5a4ef-0a0b-4574-ae9a-b7b006b0337d";
+			options = [ "subvol=persistent" ];
 			neededForBoot = true;
 		};
 
@@ -45,6 +51,11 @@
 			device = "/dev/disk/by-uuid/71f5a4ef-0a0b-4574-ae9a-b7b006b0337d";
 			options = [ "subvol=srv/prometheus" ];
 		};
+	};
+
+	environment.persistence."/persistent" = {
+		hideMounts = true;
+		directories = [ "/var/lib/forgejo" ];
 	};
 
 	networking = {
