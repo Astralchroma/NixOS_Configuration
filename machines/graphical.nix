@@ -92,7 +92,6 @@
 					rust-lang.rust-analyzer
 					streetsidesoftware.code-spell-checker
 					tamasfe.even-better-toml
-					vadimcn.vscode-lldb
 				] ++ vscode-utils.extensionsFromVscodeMarketplace [
 					{
 						name = "aw-watcher-vscode";
