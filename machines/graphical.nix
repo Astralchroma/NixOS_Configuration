@@ -90,6 +90,7 @@
 					mkhl.direnv
 					ms-vscode.hexeditor
 					rust-lang.rust-analyzer
+					serayuzgur.crates
 					streetsidesoftware.code-spell-checker
 					tamasfe.even-better-toml
 				] ++ vscode-utils.extensionsFromVscodeMarketplace [
