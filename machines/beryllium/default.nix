@@ -109,6 +109,10 @@
 				job_name = "process";
 				static_configs = [{ targets = [ "localhost:${toString process.port}" ]; }];
 			}
+			{
+				job_name = "axolotl_client-api";
+				static_configs = [{ targets = [ "localhost:8000"]; }];
+			}
 		];
 
 		exporters = {
