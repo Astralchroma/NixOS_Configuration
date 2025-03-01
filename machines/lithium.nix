@@ -113,7 +113,6 @@
 
 		lvm.boot.thin.enable = true;
 		jellyfin.enable = true;
-		tailscale.enable = true;
 	};
 
 	systemd.targets.sleep.enable = lib.mkForce false;

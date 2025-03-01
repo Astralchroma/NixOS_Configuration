@@ -72,8 +72,6 @@
 		settings.dns.base_domain = "headscale.astralchroma.dev";
 	};
 
-	services.tailscale.enable = true;
-
 	services.postgresql = {
 		enable = true;
 
