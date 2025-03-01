@@ -24,6 +24,10 @@ https://www.astralchroma.dev {
 	redir https://astralchroma.dev{uri} permanent
 }
 
+https://headscale.astralchroma.dev {
+	reverse_proxy http://localhost:8080
+}
+
 https://git.astralchroma.dev {
 	import html
 

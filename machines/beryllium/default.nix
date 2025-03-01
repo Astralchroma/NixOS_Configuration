@@ -43,8 +43,10 @@
 			"/var/lib/caddy"
 			"/var/lib/forgejo"
 			"/var/lib/grafana"
+			"/var/lib/headscale"
 			"/var/lib/postgresql"
 			"/var/lib/prometheus2"
+			"/var/lib/tailscale"
 		];
 
 		files = [
@@ -63,6 +65,14 @@
 			allowedUDPPorts = [ 443 ];
 		};
 	};
+
+	services.headscale = {
+		enable = true;
+
+		settings.dns.base_domain = "headscale.astralchroma.dev";
+	};
+
+	services.tailscale.enable = true;
 
 	services.postgresql = {
 		enable = true;
