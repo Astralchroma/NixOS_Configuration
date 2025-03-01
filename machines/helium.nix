@@ -41,7 +41,7 @@
 		hostName = "helium";
 		useDHCP = true;
 
-		networkmanager.enable = true;
+		wireless.iwd.enable = true;
 	};
 
 	users.users.emily.extraGroups = [ "networkmanager" ];
