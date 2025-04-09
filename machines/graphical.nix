@@ -54,6 +54,7 @@
 		steam.enable = true;
 		gnupg.agent.enable = true;
 		hyprland.enable = true;
+		wireshark.enable = true;
 		java = {
 			enable = true;
 			package = pkgs.temurin-bin;
@@ -72,13 +73,15 @@
 	};
 
 	users.users.emily = {
+		extraGroups = [ "wireshark" ];
+
 		packages = with pkgs; with nur.repos; [
 			activitywatch ags aseprite aw-watcher-window-wayland blockbench devenv direnv dunst fastfetch
 			fd gamemode gamescope gimp git-of-theseus heroic hyprshot inkscape jetbrains.idea-community
 			kitty libreoffice librewolf mangohud nautilus ncdu nltch.spotify-adblock obs-studio obsidian
 			onefetch oxipng pavucontrol playerctl prismlauncher qoi rclone renderdoc rsync smartmontools
-			swaylock unzip vesktop vlc vmtouch wget wine wine64 winetricks wofi xorg.xcursorthemes
-			yubikey-manager zip
+			swaylock unzip vesktop vlc vmtouch wget wine wine64 wireshark winetricks wofi
+			xorg.xcursorthemes yubikey-manager zip
 
 			(ciscoPacketTracer8.overrideAttrs { dontCheckForBrokenSymlinks = true; })
 
