@@ -83,8 +83,6 @@
 			swaylock unzip vesktop vlc vmtouch wget wine wine64 wireshark winetricks wofi
 			xorg.xcursorthemes yubikey-manager zip
 
-			(ciscoPacketTracer8.overrideAttrs { dontCheckForBrokenSymlinks = true; })
-
 			(vscode-with-extensions.override {
 				vscode = vscodium;
 				vscodeExtensions = with vscode-extensions; [

@@ -3,6 +3,8 @@
 
 	system.stateVersion = "24.05";
 
+	nix.gc.automatic = false;
+
 	hardware.cpu.amd.updateMicrocode = true;
 
 	boot = {
@@ -145,5 +147,9 @@
 		};
 	};
 
-	users.users.emily.packages = with pkgs; [ nvtopPackages.amd nur.repos.iuricarras.truckersmp-cli ];
+	users.users.emily.packages = with pkgs; [
+		nvtopPackages.amd nur.repos.iuricarras.truckersmp-cli
+
+		(ciscoPacketTracer8.overrideAttrs { dontCheckForBrokenSymlinks = true; })
+	];
 }

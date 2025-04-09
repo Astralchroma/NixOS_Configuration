@@ -10,7 +10,7 @@
 		};
 
 		gc = {
-			automatic = true;
+			automatic = lib.mkDefault true;
 			dates = "04:15";
 			options = "--delete-older-than 28d";
 		};
