@@ -73,12 +73,12 @@
 		extraGroups = [ "wireshark" ];
 
 		packages = with pkgs; with nur.repos; [
-			activitywatch ags aseprite aw-watcher-window-wayland blockbench devenv direnv dunst fastfetch
-			fd gamemode gamescope gimp git-of-theseus heroic hyprshot inkscape jetbrains.idea-community
-			kitty libreoffice librewolf mangohud nautilus ncdu nltch.spotify-adblock obs-studio obsidian
-			onefetch oxipng pavucontrol playerctl prismlauncher qoi rclone renderdoc rsync smartmontools
-			swaylock unzip vesktop vlc vmtouch wget wine wine64 wireshark winetricks wofi
-			xorg.xcursorthemes yubikey-manager zip
+			ags aseprite audacity blockbench bytecode-viewer devenv direnv dunst fastfetch gimp
+			git-of-theseus heroic hyfetch hyprshot inkscape jetbrains.idea-community-bin kitty
+			libreoffice librewolf nautilus ncdu nltch.spotify-adblock obs-studio obsidian onefetch
+			oxipng pavucontrol playerctl prismlauncher rclone renderdoc rsync smartmontools
+			swaylock unzip vesktop vlc vmtouch wget wine wine64 winetricks wireshark wofi
+			xorg.xcursorthemes yubikey-manager zip 
 
 			(vscode-with-extensions.override {
 				vscode = vscodium;
@@ -92,12 +92,6 @@
 					streetsidesoftware.code-spell-checker
 					tamasfe.even-better-toml
 				] ++ vscode-utils.extensionsFromVscodeMarketplace [
-					{
-						name = "aw-watcher-vscode";
-						publisher = "activitywatch";
-						version = "0.5.0";
-						sha256 = "sha256-OrdIhgNXpEbLXYVJAx/jpt2c6Qa5jf8FNxqrbu5FfFs=";
-					}
 					{
 						name = "HOCON";
 						publisher = "sabieber";
@@ -113,10 +107,5 @@
 				];
 			})
 		];
-	};
-
-	environment.variables = with pkgs; {
-		JDK17 = "${openjdk17-bootstrap}";
-		JDK21 = "${temurin-bin}";
 	};
 }

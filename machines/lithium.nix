@@ -12,12 +12,25 @@
 
 		initrd = {
 			availableKernelModules = [ "xhci_pci" "ahci" "nvme" "usbhid" "usb_storage" "sd_mod" ];
-			kernelModules = [ "bcache" ];
 
-			services.bcache.enable = true;
-
-			luks.devices.lithium = {
+			luks.devices.root = {
 				device = "/dev/disk/by-uuid/63a975e1-85cd-4e95-a04f-b2be3e026c27";
+
+				tryEmptyPassphrase = true;
+				allowDiscards = true;
+				bypassWorkqueues = true;
+			};
+
+			luks.devices.secondary = {
+				device = "/dev/disk/by-uuid/9d3822ba-9f35-4bb5-b12a-3e0a5a41eec1";
+
+				tryEmptyPassphrase = true;
+				allowDiscards = true;
+				bypassWorkqueues = true;
+			};
+
+			luks.devices.secondary-cache = {
+				device = "/dev/disk/by-uuid/c28c020b-127c-4d85-817c-80fdcdd16d39";
 
 				tryEmptyPassphrase = true;
 				allowDiscards = true;
@@ -26,37 +39,20 @@
 		};
 
 		kernelModules = [ "kvm-amd" ];
-		
-		loader.systemd-boot.extraInstallCommands = ''
-			if ${pkgs.util-linux}/bin/mountpoint -q /boot2
-			then
-				printf "\033[1;34mMirroring /boot to /boot2. EFI System Partition will be redundant!\033[0m\n"
-				${pkgs.rsync}/bin/rsync -aUH --delete-after /boot/ /boot2/
-			else
-				printf "\033[1;31mMountpoint /boot2 does not exist! EFI System Partition will not be redundant!\033[0m\n"
-			fi
-		'';
-
-		bcache.enable = true;
 	};
 
 	fileSystems = {
 		"/" = {
-			device = "/dev/mapper/lithium";
+			device = "/dev/mapper/root";
 			fsType = "btrfs";
 			options = [ "compress=zstd:15" ];
 		};
 
 		"/media/Data" = {
-			device = "/dev/mapper/lithium";
+			device = "/dev/mapper/root";
 			fsType = "btrfs";
 			options = [ "subvol=/data" ];
-		};
-
-		"/media/Library" = {
-			device = "/dev/mapper/lithium";
-			fsType = "btrfs";
-			options = [ "subvol=/library" ];
+			neededForBoot = false;
 		};
 
 		"/boot" = {
@@ -64,9 +60,10 @@
 			fsType = "vfat";
 		};
 
-		"/boot2" = {
-			device = "/dev/disk/by-uuid/8236-8023";
-			fsType = "vfat";
+		"/media/secondary" = {
+			device = "/dev/mapper/secondary";
+			fsType = "bcachefs";
+			neededForBoot = false;
 		};
 	};
 
@@ -122,9 +119,10 @@
 	systemd.targets.hibernate.enable = lib.mkForce false;
 	systemd.targets.hybrid-sleep.enable = lib.mkForce false;
 	
-	environment.systemPackages = [
+	environment.systemPackages = with pkgs; [
+		bcachefs-tools
 		inputs.agenix.packages."${pkgs.system}".default
-		pkgs.rclone
+		rclone
 	];
 
 	age.secrets.rclone.file = ../secrets/rclone.conf.age;
@@ -143,7 +141,7 @@
 		wantedBy = [ "timers.target" ];
 		timerConfig = {
 			OnCalendar = "hourly";
-			Persisent = true;
+			Persistent = true;
 		};
 	};
 
