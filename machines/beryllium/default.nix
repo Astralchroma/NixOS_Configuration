@@ -193,13 +193,16 @@
 				APP_DISPLAY_NAME_FORMAT = "git.astralchroma.dev";
 			};
 
+			repository = {
+				DISABLE_MIGRATIONS = true;
+				DISABLE_DOWNLOAD_SOURCE_ARCHIVES = true;
+			};
+
 			server = {
 				DOMAIN = "git.astralchroma.dev";
 				ROOT_URL = "https://git.astralchroma.dev/";
 
 				HTTP_PORT = 4000;
-
-				DISABLE_SSH = true;
 			};
 
 			security = {
@@ -209,6 +212,8 @@
 
 			session.COOKIE_SECURE = true;
 			admin.DISABLE_REGULAR_ORG_CREATION = true;
+			service.DISABLE_REGISTRATION = true;
+			packages.ENABLED = false;
 		};
 	};
 
