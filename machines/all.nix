@@ -53,7 +53,7 @@
 	};
 
 	console.keyMap = "uk";
-	environment.defaultPackages = lib.mkForce [];
+	environment.defaultPackages = lib.mkForce [ pkgs.rsync ];
 	i18n.defaultLocale = "en_GB.UTF-8";
 	time.timeZone = "Europe/London";
 
