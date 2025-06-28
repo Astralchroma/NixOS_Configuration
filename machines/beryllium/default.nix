@@ -78,7 +78,10 @@
 	services.headscale = {
 		enable = true;
 
-		settings.dns.base_domain = "headscale.astralchroma.dev";
+		settings.dns = {
+			base_domain = "internal.astralchroma.dev";
+			override_local_dns = false;
+		};
 	};
 
 	services.postgresql = {
