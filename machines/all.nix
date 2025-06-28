@@ -11,7 +11,7 @@
 
 		gc = {
 			automatic = lib.mkDefault true;
-			dates = "04:15";
+			dates = "03:30";
 			options = "--delete-older-than 28d";
 		};
 	};
@@ -20,7 +20,7 @@
 		enable = true;
 		flake = inputs.self.outPath;
 		flags = [ "--upgrade-all" "--verbose" "-L" ];
-		dates = "04:15";
+		dates = "03:30";
 	};
 
 	systemd.services.nix-gc.after = [ "nixos-upgrade.service" ];
