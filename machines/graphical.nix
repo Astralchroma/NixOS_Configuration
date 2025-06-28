@@ -54,7 +54,7 @@
 		wireshark.enable = true;
 		java = {
 			enable = true;
-			package = pkgs.temurin-bin;
+			package = pkgs.jetbrains.jdk-no-jcef;
 		};
 	};
 
@@ -76,9 +76,9 @@
 			ags aseprite audacity blockbench bytecode-viewer devenv direnv dunst fastfetch gimp
 			git-of-theseus heroic hyfetch hyprshot inkscape jetbrains.idea-community-bin kitty
 			libreoffice librewolf nautilus ncdu nltch.spotify-adblock obs-studio obsidian onefetch
-			oxipng pavucontrol playerctl prismlauncher rclone renderdoc smartmontools swaylock
-			unzip vesktop vlc vmtouch wget wine wine64 winetricks wireshark wofi xorg.xcursorthemes
-			yubikey-manager zip
+			oxipng pavucontrol playerctl prismlauncher rclone renderdoc smartmontools steam-run
+			swaylock unzip vesktop vlc vmtouch wget wine wine64 winetricks wireshark wofi
+			xorg.xcursorthemes yubikey-manager zip
 
 			(vscode-with-extensions.override {
 				vscode = vscodium;
