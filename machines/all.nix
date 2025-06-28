@@ -19,7 +19,7 @@
 	system.autoUpgrade = {
 		enable = true;
 		flake = inputs.self.outPath;
-		flags = [ "--upgrade-all" "--recreate-lock-file" "--verbose" "-L" ];
+		flags = [ "--upgrade-all" "--verbose" "-L" ];
 		dates = "04:15";
 	};
 
