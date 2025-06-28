@@ -61,7 +61,7 @@
 		useDHCP = true;
 
 		firewall = {
-			allowedTCPPorts = [ 80 443 ];
+			allowedTCPPorts = [ 80 81 443 ];
 			allowedUDPPorts = [ 443 ];
 		};
 	};
@@ -72,6 +72,16 @@
 		rootless = {
 			enable = true;
 			setSocketVariable = true;
+		};
+	};
+
+	virtualisation.oci-containers = {
+		backend = "docker";
+
+		containers.caddy = {
+			image = "caddy";
+
+			ports = [ "81:80" ];
 		};
 	};
 
