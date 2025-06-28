@@ -99,7 +99,7 @@
 			overrideFolders = true;
 			settings = {
 				devices = {
-					"Phone" = { id = "QW5ZI4M-GFPS4KC-V6XZ43A-Y46P6KR-TBK7QKA-JJV75WI-DZPVUPG-44U3AQP"; };
+					"boron" = { id = "OJ23ZHE-NPMUIXI-LPJZNIB-M5YDOPJ-4IUQM3D-QE7YX2U-W3WKIJS-LACKGAN"; };
 				};
 				folders = {
 					"Journal" = {
